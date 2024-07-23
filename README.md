@@ -57,3 +57,13 @@ saveAs(data, 'file.docx') // save as docx file
 const text = toText(json)
 ```
 
+## Releases (add tag)
+```shell
+git tag -a v0.1.0 2004632 -m 'v0.1.0'
+git push origin v0.1.0
+```
+## Releases (npm)
+```shell
+npm login
+npm publish --access public
+```

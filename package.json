@@ -5,6 +5,9 @@
   "author": "Andrei Zagoruiko <adkrix@gmail.com> (https://zor.su)",
   "homepage": "https://github.com/wunderwa/lexical-json",
   "repository": "github:wunderwa/lexical-json",
+  "bugs": {
+    "url": "https://github.com/wunderwa/lexical-json/issues"
+  },
   "license": "MIT",
   "keywords": [
     "facebook",
