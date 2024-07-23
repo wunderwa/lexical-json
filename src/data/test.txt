@@ -1,0 +1,36 @@
+Paragraph Left
+Paragraph Right
+Paragraph Center
+Paragraph Justify
+Paragraph Bold italic underline strike-through Code All-effects Link
+Link
+Link Bold italic underline strike-through Code All-effects
+Header-H1
+Header-H1 Left
+Header-H1 Right
+Header-H1 Center
+Header-H1 Justify
+Header-H1 Bold italic underline strike-through Code All-effects Link
+Header-H2
+Header-H2 Left
+Header-H2 Right
+Header-H2 Center
+Header-H2 Justify
+Header-H2 Bold italic underline strike-through Code All-effects Link
+Quote Left
+Quote Right
+Quote Center
+Quote Justify
+Quote Bold italic underline strike-through Code All-effects Link
+
+List Unordered 1 Left
+List Unordered 2 Right
+List Unordered 3 Center
+List Unordered 4 Justify
+List Unordered Bold italic underline strike-through Code All-effects
+
+List Ordered 1 Left
+List Ordered 2 Right
+List Ordered 3 Center
+List Ordered 4 Justify
+List Ordered Bold italic underline strike-through Code All-effects
