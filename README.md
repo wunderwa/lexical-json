@@ -66,4 +66,5 @@ git push origin v0.1.0
 ```shell
 npm login
 npm publish --access public
+npm unpublish @wunderwa/lexical-json@0.1.0
 ```

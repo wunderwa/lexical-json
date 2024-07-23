@@ -7,6 +7,7 @@
     "moduleResolution": "Node",
     "jsx": "react-jsx",
     "types": ["vite/client", "node", "react"],
+    "declaration": true,
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "allowJs": true,
     "allowSyntheticDefaultImports": true,

@@ -1,6 +1,6 @@
 {
   "name": "@wunderwa/lexical-json",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Facebook Lexical: JSON to html convertor, TypeScript library",
   "author": "Andrei Zagoruiko <adkrix@gmail.com> (https://zor.su)",
   "homepage": "https://github.com/wunderwa/lexical-json",
@@ -55,7 +55,7 @@
     "stylelint-config-recommended": "^14.0.0",
     "stylelint-config-sass-guidelines": "^11.0.0",
     "tslib": "^2.6.2",
-    "typescript": "^5.4.2",
+    "typescript": "^5.4.4",
     "vite": "^5.2.13",
     "vite-plugin-dts": "^3.9.1"
   }
