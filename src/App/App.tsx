@@ -9,10 +9,7 @@ setConfigItem(
   'quote',
 )
 
-console.log('', getConfig('quote'))
-
 const htmlStr = toHtml(testData)
-console.log(htmlStr)
 export const App = () => {
   return (
     <div>

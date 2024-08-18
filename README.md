@@ -26,8 +26,9 @@ const json: LexicalJson = [
       indent: 0,
       type: 'root',
       version: 1,
-      children:[...children]
+      children: [...children]
     }
+  }
 ]
 const config: LexicalConfig = {
   h1: {

@@ -53,7 +53,6 @@ export const getConfig = (key: LexicalConfigKey): LexicalConfigItem | null => Co
 
 export const getAttr = (key: LexicalConfigKey, injectStyle: LexicalStyle = null): string => {
   const conf = getConfig(key)
-  console.log('FFF', key, conf, injectStyle)
   let _style = injectStyle ?? {}
   const _class = []
   if (conf?.style) {
@@ -67,7 +66,5 @@ export const getAttr = (key: LexicalConfigKey, injectStyle: LexicalStyle = null)
     _class.length ? `class="${_class.join(' ')}"` : '',
     `style="${toCssString(_style)}"`
   ]
-  console.log('FFF', key, conf, injectStyle, '+++', _style, toCssString(_style), res)
-
   return res.join(' ')
 }

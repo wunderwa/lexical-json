@@ -12,7 +12,6 @@ export const toCssString = (style: LexicalStyle): string => {
     (acc, key) => ({ ...acc, [keyToStyleName(key)]: style[key] }),
     {},
   )
-  // console.log('STYLES', style, cleaned)
   return Object.keys(cleaned)
     .reduce((acc: string[], key) => [...acc, `${key}:${cleaned [key]}`], [])
     .join(';')
