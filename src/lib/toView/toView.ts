@@ -10,7 +10,7 @@ import {
   LexicalQuote,
   LexicalSimpleChild,
   LexicalText,
-} from 'lib/types'
+} from '../types'
 
 const getText = (text: LexicalText) => text.text
 const getLink = (link: LexicalLink) => link.children.map(getText).join('')

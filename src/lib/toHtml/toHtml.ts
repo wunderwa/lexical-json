@@ -1,6 +1,6 @@
-import { IS_BOLD, IS_CODE, IS_ITALIC, IS_STRIKETHROUGH, IS_UNDERLINE } from './constants'
-import { getAttr, getConfig } from './config'
-import './defaultConfig'
+import { IS_BOLD, IS_CODE, IS_ITALIC, IS_STRIKETHROUGH, IS_UNDERLINE } from '../constants'
+import { getAttr, getConfig } from '../config'
+import '../defaultConfig'
 import {
   LexicalBase,
   LexicalStyle,
@@ -16,7 +16,7 @@ import {
   LexicalQuote,
   LexicalSimpleChild,
   LexicalText,
-} from './types'
+} from 'lib/types'
 
 const getBaseStyle = (node: LexicalBase): LexicalStyle => {
   const styles: LexicalStyle = {}
@@ -46,7 +46,7 @@ const getText = (text: LexicalText) => {
   if (text.format & IS_CODE) {
     // code
     styles.fontFamily = 'monospace'
-    styles = {...styles, ...(getConfig('code')?.style ?? {})}
+    styles = { ...styles, ...(getConfig('code')?.style ?? {}) }
   }
   const configAttr = getAttr('text', styles)
   return `<span ${configAttr}>${text.text}</span>`
