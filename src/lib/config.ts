@@ -27,7 +27,7 @@ const initConfig = (): LexicalConfigItem => ({
   style: {},
 })
 
-let Config: LexicalConfig = configTypes.reduce(
+const Config: LexicalConfig = configTypes.reduce(
   (acc, key) => ({
     ...acc,
     [key]: initConfig(),
@@ -62,9 +62,6 @@ export const getAttr = (key: LexicalConfigKey, injectStyle: LexicalStyle = null)
     _class.push(conf.class)
   }
 
-  const res = [
-    _class.length ? `class="${_class.join(' ')}"` : '',
-    `style="${toCssString(_style)}"`
-  ]
+  const res = [_class.length ? `class="${_class.join(' ')}"` : '', `style="${toCssString(_style)}"`]
   return res.join(' ')
 }

@@ -1,4 +1,4 @@
-import { LexicalJson } from 'lib/types'
+import { LexicalJson } from '../lib/types'
 
 export const testData: LexicalJson = {
   root: {

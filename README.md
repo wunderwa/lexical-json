@@ -14,6 +14,7 @@ yarn add @wunderwa/lexical-json
 
 ## Usage
 
+http://localhost:5173/
 
 ```ts
 import { setConfig, toHtml, toText, LexicalJson } from '@wunderwa/lexical-json'
