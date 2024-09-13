@@ -5,7 +5,7 @@ import { setConfig } from './config'
 setConfig({
   quote: {
     style: { borderLeft: '2px solid grey', padding: '8px' },
-    class: 'lex-quote'
+    class: 'lex-quote',
   },
   code: {
     style: {
@@ -15,5 +15,5 @@ setConfig({
       borderRadius: '0px',
       padding: '0px 2px',
     },
-  }
+  },
 })

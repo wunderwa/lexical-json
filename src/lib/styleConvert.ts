@@ -13,11 +13,11 @@ export const toCssString = (style: LexicalStyle): string => {
     {},
   )
   return Object.keys(cleaned)
-    .reduce((acc: string[], key) => [...acc, `${key}:${cleaned [key]}`], [])
+    .reduce((acc: string[], key) => [...acc, `${key}:${cleaned[key]}`], [])
     .join(';')
 }
 
-const toCssJson = (str: string) =>
+export const toCssJson = (str: string) =>
   str.split(';').reduce((acc: LexicalStyle, key: string) => {
     const parts = key.split(':', 2)
     if (parts.length > 1) {
