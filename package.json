@@ -1,6 +1,6 @@
 {
   "name": "@wunderwa/lexical-json",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Facebook Lexical: JSON to html convertor, TypeScript library",
   "author": "Andrei Zagoruiko <adkrix@gmail.com> (https://zor.su)",
   "homepage": "https://github.com/wunderwa/lexical-json",
