@@ -1,15 +1,50 @@
 export type LexicalDirection = 'ltr' | 'rtl' | null
 export type LexicalFormat = 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
 
-export type LexicalListType = 'bullet' | 'number'
+export type LexicalListType = 'bullet' | 'number' | 'check'
 export type LexicalListTag = 'ul' | 'ol'
 export type LexicalHeadingTag = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
 export type LexicalTypes = 'text' | 'linebreak' | 'link' | 'paragraph' | 'quote' | 'heading' | 'listitem' | 'list'
+export type LexicalExtendTypes = 'code' | 'chords'
 
-export type LexicalConfigKey = LexicalTypes | LexicalListTag | LexicalHeadingTag | 'code'
+export type LexicalChordsHighlightType = 'tone' | 'min' | 'attr' | 'error'
+export type LexicalCodeHighlightType =
+  | 'atrule'
+  | 'attr'
+  | 'boolean'
+  | 'builtin'
+  | 'cdata'
+  | 'char'
+  | 'class'
+  | 'class-name'
+  | 'comment'
+  | 'constant'
+  | 'deleted'
+  | 'doctype'
+  | 'entity'
+  | 'function'
+  | 'important'
+  | 'inserted'
+  | 'keyword'
+  | 'namespace'
+  | 'number'
+  | 'operator'
+  | 'prolog'
+  | 'property'
+  | 'punctuation'
+  | 'regex'
+  | 'selector'
+  | 'string'
+  | 'symbol'
+  | 'tag'
+  | 'url'
+  | 'variable'
 
-export type LexicalStyle = { [key: string]: string } | null
+export type LexicalConfigKey = LexicalTypes | LexicalListTag | LexicalHeadingTag | LexicalExtendTypes
+
+type LexicalStyleKey = string | 'font-size' | 'font-Size' | 'line-height' | 'lineHeight' | 'color'
+export type LexicalStyle = { [key: LexicalStyleKey]: string } | null
 
 export type LexicalConfigItem = Partial<{
   class: string
@@ -18,14 +53,21 @@ export type LexicalConfigItem = Partial<{
 
 export type LexicalConfig = Partial<Record<LexicalConfigKey, LexicalConfigItem>>
 
-export type LexicalText = {
+export type LexicalTextBase = {
   text: string
-  type: 'text'
   format: number
   detail: number
   mode: string
   style: string
   version: number
+}
+
+export type LexicalText = LexicalTextBase & {
+  type: 'text'
+}
+
+export type LexicalTab = LexicalTextBase & {
+  type: 'tab'
 }
 
 export type LexicalLinebreak = {
@@ -85,8 +127,39 @@ export type LexicalList = LexicalBase & {
   start: number
 }
 
+//-- LexicalCode
+
+export type LexicalCodeHighlight = LexicalTextBase & {
+  type: 'code-highlight'
+  highlightType?: LexicalCodeHighlightType
+}
+
+export type LexicalCodeChild = LexicalLinebreak | LexicalTab | LexicalCodeHighlight
+
+export type LexicalCode = LexicalBase & {
+  children: LexicalCodeChild[]
+  type: 'code'
+  language?: string
+}
+
+//-- LexicalChords
+
+export type LexicalChordsHighlight = LexicalTextBase & {
+  type: 'chords-highlight'
+  highlightType?: LexicalChordsHighlightType
+}
+
+export type LexicalChordsChild = LexicalLinebreak | LexicalTab | LexicalChordsHighlight
+
+export type LexicalChords = LexicalBase & {
+  children: LexicalChordsChild[]
+  type: 'chords'
+  tonality?: string | number
+}
+//--
+
 export type LexicalNonListElem = LexicalParagraph | LexicalHeading | LexicalQuote
-export type LexicalElem = LexicalParagraph | LexicalHeading | LexicalQuote | LexicalList
+export type LexicalElem = LexicalParagraph | LexicalHeading | LexicalQuote | LexicalList | LexicalChords | LexicalCode
 
 export type LexicalJson = {
   root: {

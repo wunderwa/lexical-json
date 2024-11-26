@@ -1,4 +1,8 @@
 import {
+  LexicalChords,
+  LexicalChordsChild,
+  LexicalCode,
+  LexicalCodeChild,
   LexicalElem,
   LexicalHeading,
   LexicalJson,
@@ -26,12 +30,47 @@ const getSimpleChild = (simpleChild: LexicalSimpleChild) => {
   }
 }
 
+const getChordsChild = (simpleChild: LexicalChordsChild) => {
+  switch (simpleChild.type) {
+    case 'chords-highlight':
+      return simpleChild.text
+    case 'tab':
+      return '    '
+    case 'linebreak':
+    default:
+      return '\n'
+  }
+}
+
+const getCodeChild = (simpleChild: LexicalCodeChild) => {
+  switch (simpleChild.type) {
+    case 'code-highlight':
+      return simpleChild.text
+    case 'tab':
+      return '    '
+    case 'linebreak':
+    default:
+      return '\n'
+  }
+}
+
 const getList = (list: LexicalList, pad = ''): string => {
-  const isNum = list.listType === 'number'
+  const getPrefix = (index: number, check: boolean) => {
+    switch (list.listType) {
+      case 'number':
+        return `${index + 1}. `
+      case 'check':
+        return check ? '🗹 ' : '🗆 '
+      default:
+        return '• '
+    }
+  }
+
   return list.children
     .map((listItem: LexicalListItem, i) => {
-      const prefix = pad + (isNum ? `${i + 1}. ` : '• ')
+      const prefix = pad + getPrefix(i, listItem.checked ?? false)
       return (
+        pad +
         prefix +
         listItem.children.map((itemChild: LexicalListItemChild) => {
           if (itemChild.type == 'list') {
@@ -49,6 +88,10 @@ const getQuote = (quote: LexicalQuote) => quote.children.map(getSimpleChild).joi
 const getParagraph = (quote: LexicalParagraph) => quote.children.map(getSimpleChild).join('')
 const getHeading = (quote: LexicalHeading) => quote.children.map(getSimpleChild).join('')
 
+const getChords = (quote: LexicalChords) => quote.children.map(getChordsChild).join('')
+
+const getCode = (quote: LexicalCode) => quote.children.map(getCodeChild).join('')
+
 export const toView = (body: LexicalJson) => {
   return body.root.children
     .map((elem: LexicalElem) => {
@@ -61,6 +104,10 @@ export const toView = (body: LexicalJson) => {
           return getQuote(elem)
         case 'paragraph':
           return getParagraph(elem)
+        case 'chords':
+          return getChords(elem)
+        case 'code':
+          return getCode(elem)
         default:
           return ''
       }

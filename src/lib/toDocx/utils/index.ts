@@ -1,4 +1,5 @@
 export * from './formatToAlignment'
+export * from './getCodeChild'
 export * from './getHeadingValue'
 export * from './getSimpleChild'
 export * from './getList'
