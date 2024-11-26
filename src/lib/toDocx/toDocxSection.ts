@@ -1,9 +1,18 @@
 import { Paragraph } from 'docx'
 import '../../lib/defaultConfig'
 import { FileChild } from 'docx/build/file/file-child'
-import { LexicalElem, LexicalHeading, LexicalJson, LexicalParagraph, LexicalQuote } from 'lib/types'
+import { getChordsChild } from './utils/getChordsChild'
+import { formatToAlignment, getHeadingValue, getSimpleChild, getList, getCodeChild } from './utils'
 
-import { formatToAlignment, getHeadingValue, getSimpleChild, getList } from './utils'
+import {
+  LexicalChords,
+  LexicalCode,
+  LexicalElem,
+  LexicalHeading,
+  LexicalJson,
+  LexicalParagraph,
+  LexicalQuote,
+} from '../types'
 
 // TODO styles.direction = node.direction
 
@@ -11,6 +20,20 @@ const theParagraph = (paragraph: LexicalParagraph): Paragraph => {
   return new Paragraph({
     alignment: formatToAlignment(paragraph.format),
     children: paragraph.children.map(getSimpleChild),
+  })
+}
+
+const theChords = (paragraph: LexicalChords): Paragraph => {
+  return new Paragraph({
+    alignment: formatToAlignment(paragraph.format),
+    children: paragraph.children.map(getChordsChild),
+  })
+}
+
+const theCode = (paragraph: LexicalCode): Paragraph => {
+  return new Paragraph({
+    alignment: formatToAlignment(paragraph.format),
+    children: paragraph.children.map(getCodeChild),
   })
 }
 
@@ -40,6 +63,10 @@ export const toDocxSection = (body: LexicalJson): FileChild[] => {
         return [...acc, theQuote(elem)]
       case 'paragraph':
         return [...acc, theParagraph(elem)]
+      case 'chords':
+        return [...acc, theChords(elem)]
+      case 'code':
+        return [...acc, theCode(elem)]
     }
   }, [])
 }

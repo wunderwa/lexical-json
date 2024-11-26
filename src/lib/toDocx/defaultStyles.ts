@@ -35,7 +35,7 @@ export const styles = {
     },
     document: {
       run: {
-        size: '14pt',
+        size: '16pt',
         font: 'Calibri',
       },
       paragraph: {
@@ -103,9 +103,25 @@ export const numbering = {
       levels: [
         {
           level: 0,
-          // format: LevelFormat.BULLET,
-          text: '•)',
-          // alignment: AlignmentType.LEFT,
+          text: '•',
+        },
+      ],
+    },
+    {
+      reference: 'check-list',
+      levels: [
+        {
+          level: 0,
+          text: '🗆',
+        },
+      ],
+    },
+    {
+      reference: 'check-list-checked',
+      levels: [
+        {
+          level: 0,
+          text: '🗹',
         },
       ],
     },
