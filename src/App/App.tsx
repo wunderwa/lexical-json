@@ -17,7 +17,7 @@ const textStr = toView(testData)
 export const App = () => {
   const [showHtml, setShowHtml] = useState<boolean>(true)
 
-  const tpaoggleShow = useCallback(() => {
+  const toggleShow = useCallback(() => {
     setShowHtml(!showHtml)
   }, [showHtml, setShowHtml])
 
