@@ -1,5 +1,6 @@
 export * from './types'
 export * from './config'
+export * from './convert'
 export * from './toHtml'
 export * from './toView'
 export * from './toDocx'
