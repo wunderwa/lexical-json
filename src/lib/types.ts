@@ -91,7 +91,7 @@ export type LexicalLink = LexicalBase & {
   title: string | null
 }
 
-export type LexicalSimpleChild = LexicalText | LexicalLink | LexicalLinebreak
+export type LexicalSimpleChild = LexicalText | LexicalLink | LexicalLinebreak | LexicalTab
 
 export type LexicalParagraph = LexicalBase & {
   children: LexicalSimpleChild[]

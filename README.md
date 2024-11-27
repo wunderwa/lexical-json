@@ -71,7 +71,15 @@ const Download = useCallback(() => {
 
 ```
 
+### Convert all block elements to paragraphs
 
+```ts
+import { clearBlocks, LexicalParagraph, LexicalElem, toParagraphs } from '@wunderwa/lexical-json'
+
+const paragraps: LexicalParagraph[] = clearBlocks(json.root.children)
+// see also inner function to convert single blok element to LexicalParagraph array
+toParagraphs: (block: LexicalElem) => LexicalParagraph[]
+```
 
 ## Releases (add tag)
 ```shell

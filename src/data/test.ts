@@ -551,7 +551,7 @@ export const testData: LexicalJson = {
           },
           {
             detail: 0,
-            format: 16,
+            format: 0,
             mode: 'normal',
             style: '',
             text: 'Code',
@@ -569,7 +569,7 @@ export const testData: LexicalJson = {
           },
           {
             detail: 0,
-            format: 31,
+            format: 15,
             mode: 'normal',
             style: '',
             text: 'All-effects',
@@ -734,7 +734,7 @@ export const testData: LexicalJson = {
               },
               {
                 detail: 0,
-                format: 16,
+                format: 0,
                 mode: 'normal',
                 style: '',
                 text: 'Code',
@@ -752,7 +752,7 @@ export const testData: LexicalJson = {
               },
               {
                 detail: 0,
-                format: 31,
+                format: 15,
                 mode: 'normal',
                 style: '',
                 text: 'All-effects',
@@ -958,7 +958,7 @@ export const testData: LexicalJson = {
           },
           {
             detail: 0,
-            format: 16,
+            format: 0,
             mode: 'normal',
             style: '',
             text: 'Code',
@@ -976,7 +976,7 @@ export const testData: LexicalJson = {
           },
           {
             detail: 0,
-            format: 31,
+            format: 15,
             mode: 'normal',
             style: '',
             text: 'All-effects',
@@ -1202,7 +1202,7 @@ export const testData: LexicalJson = {
           },
           {
             detail: 0,
-            format: 16,
+            format: 0,
             mode: 'normal',
             style: '',
             text: 'Code',
@@ -1220,7 +1220,7 @@ export const testData: LexicalJson = {
           },
           {
             detail: 0,
-            format: 31,
+            format: 15,
             mode: 'normal',
             style: '',
             text: 'All-effects',
@@ -1423,7 +1423,7 @@ export const testData: LexicalJson = {
           },
           {
             detail: 0,
-            format: 16,
+            format: 0,
             mode: 'normal',
             style: '',
             text: 'Code',
@@ -1441,7 +1441,7 @@ export const testData: LexicalJson = {
           },
           {
             detail: 0,
-            format: 31,
+            format: 15,
             mode: 'normal',
             style: '',
             text: 'All-effects',
@@ -1658,7 +1658,7 @@ export const testData: LexicalJson = {
               },
               {
                 detail: 0,
-                format: 16,
+                format: 0,
                 mode: 'normal',
                 style: '',
                 text: 'Code',
@@ -1676,7 +1676,7 @@ export const testData: LexicalJson = {
               },
               {
                 detail: 0,
-                format: 31,
+                format: 15,
                 mode: 'normal',
                 style: '',
                 text: 'All-effects',
@@ -1904,7 +1904,7 @@ export const testData: LexicalJson = {
               },
               {
                 detail: 0,
-                format: 16,
+                format: 0,
                 mode: 'normal',
                 style: '',
                 text: 'Code',
@@ -1922,7 +1922,7 @@ export const testData: LexicalJson = {
               },
               {
                 detail: 0,
-                format: 31,
+                format: 15,
                 mode: 'normal',
                 style: '',
                 text: 'All-effects',
