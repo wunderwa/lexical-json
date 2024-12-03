@@ -17,7 +17,7 @@ yarn add @wunderwa/lexical-json
 http://localhost:5173/
 
 ```ts
-import { setConfig, toHtml, toText, LexicalJson } from '@wunderwa/lexical-json'
+import { setConfig, toHtml, toView, LexicalJson } from '@wunderwa/lexical-json'
 import { asBlob } from 'html-docx-js-typescript'
 const json: LexicalJson = [
   {
@@ -54,9 +54,13 @@ setConfig(config)
 setConfigItem(config.h1, 'h1')
 
 const htmlStr = toHtml(json)
+// or
+const htmlStrShifted = toHtml(json, { chordsTonality: -6 }) // for chords plugin
+
 saveAs(data, 'file.docx') // save as docx file
 
-const text = toText(json)
+const text = toView(json)
+const textShifted = toView(json, { chordsTonality: -6 }) // for chords plugin
 ```
 
 ```ts
@@ -78,7 +82,7 @@ import { clearBlocks, LexicalParagraph, LexicalElem, toParagraphs } from '@wunde
 
 const paragraps: LexicalParagraph[] = clearBlocks(json.root.children)
 // see also inner function to convert single blok element to LexicalParagraph array
-toParagraphs: (block: LexicalElem) => LexicalParagraph[]
+type toParagraphs = (block: LexicalElem) => LexicalParagraph[]
 ```
 
 ## Releases (add tag)

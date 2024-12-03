@@ -1,4 +1,7 @@
+import { getShiftedTone } from '../utils'
 import {
+  ChordsTone,
+  ChordToneShift,
   LexicalChords,
   LexicalChordsChild,
   LexicalCode,
@@ -14,6 +17,7 @@ import {
   LexicalQuote,
   LexicalSimpleChild,
   LexicalText,
+  ToView,
 } from '../types'
 
 const getText = (text: LexicalText) => text.text
@@ -30,9 +34,12 @@ const getSimpleChild = (simpleChild: LexicalSimpleChild) => {
   }
 }
 
-const getChordsChild = (simpleChild: LexicalChordsChild) => {
+const getChordsChild = (simpleChild: LexicalChordsChild, tonality: ChordToneShift) => {
   switch (simpleChild.type) {
     case 'chords-highlight':
+      if (simpleChild.highlightType === 'tone') {
+        return getShiftedTone(simpleChild.text as ChordsTone, tonality)
+      }
       return simpleChild.text
     case 'tab':
       return '    '
@@ -59,8 +66,11 @@ const getList = (list: LexicalList, pad = ''): string => {
     switch (list.listType) {
       case 'number':
         return `${index + 1}. `
+      // ☐ - (U+2610)
+      // ☑ - (U+2611)
+      // ☒ - (U+2612)
       case 'check':
-        return check ? '🗹 ' : '🗆 '
+        return check ? '☑ ' : '☐'
       default:
         return '• '
     }
@@ -88,11 +98,12 @@ const getQuote = (quote: LexicalQuote) => quote.children.map(getSimpleChild).joi
 const getParagraph = (quote: LexicalParagraph) => quote.children.map(getSimpleChild).join('')
 const getHeading = (quote: LexicalHeading) => quote.children.map(getSimpleChild).join('')
 
-const getChords = (quote: LexicalChords) => quote.children.map(getChordsChild).join('')
+const getChords = (chords: LexicalChords, tonality: ChordToneShift) =>
+  chords.children.map(ch => getChordsChild(ch, tonality)).join('')
 
-const getCode = (quote: LexicalCode) => quote.children.map(getCodeChild).join('')
+const getCode = (code: LexicalCode) => code.children.map(getCodeChild).join('')
 
-export const toView = (body: LexicalJson) => {
+export const toView: ToView = (body, { chordsTonality = 0 } = {}) => {
   return body.root.children
     .map((elem: LexicalElem) => {
       switch (elem.type) {
@@ -105,7 +116,7 @@ export const toView = (body: LexicalJson) => {
         case 'paragraph':
           return getParagraph(elem)
         case 'chords':
-          return getChords(elem)
+          return getChords(elem, chordsTonality)
         case 'code':
           return getCode(elem)
         default:

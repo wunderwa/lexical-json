@@ -1,14 +1,24 @@
 import { getAttr } from '../config'
+import { getShiftedTone } from '../utils'
 import { getBaseStyle } from './getBaseStyle'
-import { LexicalChords, LexicalChordsChild, LexicalChordsHighlight, LexicalTab } from '../types'
+import {
+  ChordsTone,
+  ChordToneShift,
+  LexicalChords,
+  LexicalChordsChild,
+  LexicalChordsHighlight,
+  LexicalTab,
+} from '../types'
 
 const getTab = (tab: LexicalTab) => `<span>${tab.text}</span>`
 
-const getHighlight = (item: LexicalChordsHighlight) => {
+const getHighlight = (item: LexicalChordsHighlight, tonality: ChordToneShift = 0) => {
   switch (item.highlightType) {
     // TODO NEED STYLES!!!!
     case 'tone':
-      return `<span style="font-weight: bold">${item.text}</span>`
+      const tone = getShiftedTone(item.text as ChordsTone, tonality) ?? item.text
+
+      return `<span style="font-weight: bold">${tone}</span>`
     case 'min':
       return `<span style="font-size: 90%">${item.text}</span>`
     case 'attr':
@@ -20,10 +30,10 @@ const getHighlight = (item: LexicalChordsHighlight) => {
   }
 }
 
-const getChordsHighlightChild = (simpleChild: LexicalChordsChild) => {
+const getChordsHighlightChild = (simpleChild: LexicalChordsChild, tonality: ChordToneShift = 0) => {
   switch (simpleChild.type) {
     case 'chords-highlight':
-      return getHighlight(simpleChild)
+      return getHighlight(simpleChild, tonality)
     case 'tab':
       return getTab(simpleChild)
     case 'linebreak':
@@ -32,8 +42,8 @@ const getChordsHighlightChild = (simpleChild: LexicalChordsChild) => {
   }
 }
 
-export const getChords = (chords: LexicalChords) => {
-  const content = chords.children.map(getChordsHighlightChild).join('')
+export const getChords = (chords: LexicalChords, tonality: ChordToneShift) => {
+  const content = chords.children.map(ch => getChordsHighlightChild(ch, tonality)).join('')
   const styles = getBaseStyle(chords) ?? {}
   styles.fontFamily = 'monospace'
   const configAttr = getAttr('chords', styles)
