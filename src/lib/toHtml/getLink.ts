@@ -1,5 +1,5 @@
 import { getAttr } from '../config'
-import { LexicalLink } from 'lib/types'
+import { LexicalLink } from '../types'
 import { getText } from './getText'
 
 export const getLink = (link: LexicalLink) => {

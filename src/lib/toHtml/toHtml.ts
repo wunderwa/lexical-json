@@ -1,6 +1,14 @@
 import { getAttr } from '../config'
 import '../defaultConfig'
-import { LexicalElem, LexicalHeading, LexicalJson, LexicalNonListElem, LexicalParagraph, LexicalQuote } from '../types'
+import {
+  LexicalElem,
+  LexicalHeading,
+  LexicalJson,
+  LexicalNonListElem,
+  LexicalParagraph,
+  LexicalQuote,
+  ToHtml,
+} from '../types'
 
 import { getBaseStyle } from './getBaseStyle'
 import { getCode } from './getCode'
@@ -31,7 +39,7 @@ const getHeading = (heading: LexicalHeading) => {
   return `<${heading.tag} ${configAttr}>${content}</${heading.tag}>`
 }
 
-export const toHtml = (body: LexicalJson) => {
+export const toHtml: ToHtml = (body, { chordsTonality = 0 } = {}) => {
   return body.root.children
     .map((elem: LexicalElem) => {
       switch (elem.type) {
@@ -44,7 +52,7 @@ export const toHtml = (body: LexicalJson) => {
         case 'list':
           return getList(elem)
         case 'chords':
-          return getChords(elem)
+          return getChords(elem, chordsTonality)
         case 'code':
           return getCode(elem)
         default:

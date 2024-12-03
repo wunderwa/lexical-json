@@ -1,7 +1,7 @@
 import { downloadFile } from './downloadFile'
 import Parser from 'html-react-parser'
 import { numbering, toDocx, toDocxSection } from '../lib/toDocx'
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { testData } from '../data/test'
 import { toHtml, setConfigItem, toView, clearBlocks } from '../lib'
 
@@ -12,21 +12,22 @@ setConfigItem(
   'quote',
 )
 
-const htmlStr = toHtml(testData)
-const textStr = toView(testData)
 const jsonConv = {
   root: {
     ...testData.root,
     children: clearBlocks(testData.root.children),
   },
 }
-console.log(jsonConv.root)
 const htmlConvStr = toHtml(jsonConv)
 
 type AppSection = 'html' | 'text' | 'conv'
 
 export const App = () => {
   const [section, setSection] = useState<AppSection>('html')
+  const [shift, setShift] = useState<number>(0)
+
+  const textStr = useMemo(() => toView(testData, { chordsTonality: shift }), [shift])
+  const htmlStr = useMemo(() => toHtml(testData, { chordsTonality: shift }), [shift])
 
   const theSection = useCallback(
     (_section: AppSection) => {
@@ -55,6 +56,8 @@ export const App = () => {
       >
         {'Show text'}
       </button>
+
+      {' - '}
       <button
         disabled={section === 'conv'}
         onClick={() => theSection('conv')}
@@ -63,6 +66,13 @@ export const App = () => {
       </button>
       {' - '}
       <button onClick={Download}>Download DOCX</button>
+      {(section == 'html' || section == 'text') && (
+        <div>
+          <button onClick={() => setShift(shift - 1)}> {'Prev tone'} </button>
+          {shift}
+          <button onClick={() => setShift(shift + 1)}> {'Next tone'} </button>
+        </div>
+      )}
       <h3 style={{ textAlign: 'center' }}>Test data below</h3>
       {section == 'html' && (
         <div style={{ maxWidth: 800, outline: '1px solid red', margin: '10px auto' }}>{Parser(htmlStr)}</div>

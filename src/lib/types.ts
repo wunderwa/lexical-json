@@ -171,3 +171,20 @@ export type LexicalJson = {
     type: 'root'
   }
 }
+export type ChordsTone = 'A' | 'A#' | 'B' | 'C' | 'C#' | 'D' | 'D#' | 'E' | 'F' | 'F#' | 'G' | 'G#'
+export type ChordToneShift = number
+// 7 | 8 | 9 | 10 | 11
+
+export type ToView = (
+  body: LexicalJson,
+  params?: {
+    chordsTonality?: ChordToneShift
+  },
+) => string
+
+export type ToHtml = (
+  body: LexicalJson,
+  params?: {
+    chordsTonality?: ChordToneShift
+  },
+) => string
