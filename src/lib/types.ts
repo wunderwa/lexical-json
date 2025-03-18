@@ -5,7 +5,16 @@ export type LexicalListType = 'bullet' | 'number' | 'check'
 export type LexicalListTag = 'ul' | 'ol'
 export type LexicalHeadingTag = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
-export type LexicalTypes = 'text' | 'linebreak' | 'link' | 'paragraph' | 'quote' | 'heading' | 'listitem' | 'list'
+export type LexicalTypes =
+  | 'text'
+  | 'linebreak'
+  | 'link'
+  | 'autolink'
+  | 'paragraph'
+  | 'quote'
+  | 'heading'
+  | 'listitem'
+  | 'list'
 export type LexicalExtendTypes = 'code' | 'chords'
 
 export type LexicalChordsHighlightType = 'tone' | 'min' | 'attr' | 'error'
@@ -84,11 +93,12 @@ export type LexicalBase = {
 
 export type LexicalLink = LexicalBase & {
   children: LexicalText[]
-  type: 'link'
+  type: 'link' | 'autolink'
   url: string | null
   rel: string | null
   target: string | null
   title: string | null
+  isUnlinked?: boolean
 }
 
 export type LexicalSimpleChild = LexicalText | LexicalLink | LexicalLinebreak | LexicalTab

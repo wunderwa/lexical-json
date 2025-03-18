@@ -5,6 +5,7 @@ import { LexicalSimpleChild } from '../types'
 export const getSimpleChild = (simpleChild: LexicalSimpleChild) => {
   switch (simpleChild.type) {
     case 'link':
+    case 'autolink':
       return getLink(simpleChild)
     case 'text':
       return getText(simpleChild)
