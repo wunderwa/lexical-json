@@ -25,6 +25,7 @@ const getLink = (link: LexicalLink) => link.children.map(getText).join('')
 const getSimpleChild = (simpleChild: LexicalSimpleChild) => {
   switch (simpleChild.type) {
     case 'link':
+    case 'autolink':
       return getLink(simpleChild)
     case 'text':
       return getText(simpleChild)

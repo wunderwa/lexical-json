@@ -30,6 +30,7 @@ const theLink = (link: LexicalLink) => {
 export const getSimpleChild = (simpleChild: LexicalSimpleChild): ParagraphChild => {
   switch (simpleChild.type) {
     case 'link':
+    case 'autolink':
       return theLink(simpleChild)
     case 'text':
       return theText(simpleChild)

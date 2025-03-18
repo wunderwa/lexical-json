@@ -87,7 +87,7 @@ type toParagraphs = (block: LexicalElem) => LexicalParagraph[]
 
 ## Releases (add tag)
 ```shell
-git tag -a v0.1.0 2004632 -m 'v0.1.0'
+git tag -a v0.1.0 2004632 -m 'v0.6.0'
 git push origin v0.1.0
 ```
 ## Releases (npm)
