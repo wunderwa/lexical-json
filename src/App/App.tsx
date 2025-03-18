@@ -39,7 +39,7 @@ export const App = () => {
   const Download = useCallback(() => {
     const children = toDocxSection(testData)
     toDocx([{ children }], numbering).then(blob => {
-      downloadFile(blob, '1.docx', '')
+      downloadFile(blob, `lexical-${Math.ceil(Date.now() / 100).toString(36)}.docx`, '')
     })
   }, [])
   return (

@@ -1,5 +1,5 @@
-import { ExternalHyperlink, ParagraphChild, TextRun } from 'docx'
-import { IS_BOLD, IS_CODE, IS_ITALIC, IS_STRIKETHROUGH, IS_UNDERLINE } from '../../../lib/constants'
+import { ExternalHyperlink, ParagraphChild, TextRun, UnderlineType } from 'docx'
+import { IS_BOLD, IS_CODE, IS_ITALIC, IS_STRIKETHROUGH, IS_UNDERLINE } from '../../constants'
 import { LexicalLink, LexicalSimpleChild, LexicalText } from 'lib/types'
 
 const theText = (text: LexicalText) => {
@@ -8,7 +8,7 @@ const theText = (text: LexicalText) => {
     bold: Boolean(text.format & IS_BOLD),
     italics: Boolean(text.format & IS_ITALIC),
     strike: Boolean(text.format & IS_STRIKETHROUGH),
-    underline: text.format & IS_UNDERLINE ? { type: 'single' } : {},
+    underline: { type: text.format & IS_UNDERLINE ? UnderlineType.SINGLE : UnderlineType.NONE },
     font:
       text.format & IS_CODE
         ? {

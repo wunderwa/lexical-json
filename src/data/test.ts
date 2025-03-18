@@ -397,7 +397,7 @@ export const testData: LexicalJson = {
             format: 0,
             mode: 'normal',
             style: '',
-            text: 'Paragraph Left',
+            text: 'Paragraph Left ',
             type: 'text',
             version: 1,
           },

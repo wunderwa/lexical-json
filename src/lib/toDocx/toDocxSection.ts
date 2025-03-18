@@ -17,6 +17,7 @@ import {
 // TODO styles.direction = node.direction
 
 const theParagraph = (paragraph: LexicalParagraph): Paragraph => {
+  console.log(paragraph.children.map(getSimpleChild))
   return new Paragraph({
     alignment: formatToAlignment(paragraph.format),
     children: paragraph.children.map(getSimpleChild),
