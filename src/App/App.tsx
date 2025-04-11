@@ -45,16 +45,17 @@ export const App = () => {
   return (
     <div>
       <button
-        disabled={section === 'html'}
-        onClick={() => theSection('html')}
-      >
-        {'Show html'}
-      </button>
-      <button
         disabled={section === 'text'}
         onClick={() => theSection('text')}
       >
         {'Show text'}
+      </button>
+
+      <button
+        disabled={section === 'html'}
+        onClick={() => theSection('html')}
+      >
+        {'Show html'}
       </button>
 
       {' - '}
@@ -62,7 +63,7 @@ export const App = () => {
         disabled={section === 'conv'}
         onClick={() => theSection('conv')}
       >
-        {'Show convert'}
+        {'Show convert all in paragraphs'}
       </button>
       {' - '}
       <button onClick={Download}>Download DOCX</button>

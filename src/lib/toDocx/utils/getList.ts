@@ -1,5 +1,5 @@
 import { Paragraph } from 'docx'
-import { FileChild } from 'docx/build/file/file-child'
+import { FileChild } from 'docx'
 import { formatToAlignment, getSimpleChild } from '../utils'
 import {
   LexicalFormat,

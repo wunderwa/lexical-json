@@ -71,7 +71,7 @@ const getList = (list: LexicalList, pad = ''): string => {
       // ☑ - (U+2611)
       // ☒ - (U+2612)
       case 'check':
-        return check ? '☑ ' : '☐'
+        return check ? '☒ ' : '☐'
       default:
         return '• '
     }

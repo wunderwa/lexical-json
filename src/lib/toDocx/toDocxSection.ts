@@ -1,6 +1,5 @@
-import { Paragraph } from 'docx'
+import { Paragraph, FileChild } from 'docx'
 import '../../lib/defaultConfig'
-import { FileChild } from 'docx/build/file/file-child'
 import { getChordsChild } from './utils/getChordsChild'
 import { formatToAlignment, getHeadingValue, getSimpleChild, getList, getCodeChild } from './utils'
 

@@ -1,4 +1,4 @@
-import { AlignmentType } from 'docx/build/file/paragraph/formatting/alignment'
+import { AlignmentType } from 'docx'
 import { LexicalFormat } from 'lib/types'
 
 export const formatToAlignment = (
