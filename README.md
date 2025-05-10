@@ -31,6 +31,10 @@ const json: LexicalJson = [
     }
   }
 ]
+// 'text' | 'linebreak' | 'link' | 'autolink' | 'paragraph' | 'quote' | 'heading' | 'listitem' | 'list' | 
+// 'ul' | 'ol' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'table' | 'tablecell' |
+// 'code' | 'chords' 
+
 const config: LexicalConfig = {
   h1: {
     style: {

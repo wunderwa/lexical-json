@@ -1,0 +1,14 @@
+#!/bin/bash
+
+clear
+echo -e "@wunderwa/lexical-json\n"
+
+echo "yarn man"
+echo "yarn dev"
+echo "yarn watch"
+echo "yarn build"
+echo "yarn build:types"
+echo "yarn lint:scripts"
+echo "yarn lint:styles"
+echo "yarn fmt"
+echo "yarn fmt:css"

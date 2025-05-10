@@ -21,6 +21,7 @@ const configTypes: LexicalConfigKey[] = [
   'ol',
   'code',
   'chords',
+  'table',
 ]
 
 const initConfig = (): LexicalConfigItem => ({

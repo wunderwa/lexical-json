@@ -8,7 +8,6 @@ import {
   LexicalCodeChild,
   LexicalElem,
   LexicalHeading,
-  LexicalJson,
   LexicalLink,
   LexicalList,
   LexicalListItem,
@@ -16,6 +15,9 @@ import {
   LexicalParagraph,
   LexicalQuote,
   LexicalSimpleChild,
+  LexicalTable,
+  LexicalTableCell,
+  LexicalTableRow,
   LexicalText,
   ToView,
 } from '../types'
@@ -104,6 +106,23 @@ const getChords = (chords: LexicalChords, tonality: ChordToneShift) =>
 
 const getCode = (code: LexicalCode) => code.children.map(getCodeChild).join('')
 
+export const getTable = (table: LexicalTable): string => {
+  return table.children
+    .map((row: LexicalTableRow) => {
+      const rowChildren = row.children
+        .map((cell: LexicalTableCell) => {
+          return `${cell.children
+            .map(p => {
+              return `${p.children.map(getSimpleChild)}`
+            })
+            .join(' ')}`
+        })
+        .join('\t')
+      return `${rowChildren}`
+    })
+    .join('\n')
+}
+
 export const toView: ToView = (body, { chordsTonality = 0 } = {}) => {
   return body.root.children
     .map((elem: LexicalElem) => {
@@ -120,6 +139,8 @@ export const toView: ToView = (body, { chordsTonality = 0 } = {}) => {
           return getChords(elem, chordsTonality)
         case 'code':
           return getCode(elem)
+        case 'table':
+          return getTable(elem)
         default:
           return ''
       }

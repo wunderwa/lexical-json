@@ -1,8 +1,10 @@
-import { LexicalJson } from '../lib/types'
+import { LexicalJson } from '../lib'
+import { tableJson } from './table'
 
 export const testData: LexicalJson = {
   root: {
     children: [
+      tableJson,
       {
         children: [
           {
@@ -408,7 +410,7 @@ export const testData: LexicalJson = {
                 format: 0,
                 mode: 'normal',
                 style: '',
-                text: 'http://tourclub.misis.ru/forum/9-327-1',
+                text: 'https://tourclub.misis.ru/forum/9-327-1',
                 type: 'text',
                 version: 1,
               },
@@ -421,7 +423,7 @@ export const testData: LexicalJson = {
             rel: null,
             target: null,
             title: null,
-            url: 'http://tourclub.misis.ru/forum/9-327-1',
+            url: 'https://tourclub.misis.ru/forum/9-327-1',
             isUnlinked: false,
           },
         ],

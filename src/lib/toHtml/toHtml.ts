@@ -1,20 +1,13 @@
 import { getAttr } from '../config'
 import '../defaultConfig'
-import {
-  LexicalElem,
-  LexicalHeading,
-  LexicalJson,
-  LexicalNonListElem,
-  LexicalParagraph,
-  LexicalQuote,
-  ToHtml,
-} from '../types'
+import { LexicalElem, LexicalHeading, LexicalNonListElem, LexicalParagraph, LexicalQuote, ToHtml } from '../types'
 
 import { getBaseStyle } from './getBaseStyle'
 import { getCode } from './getCode'
 import { getChords } from './getChords'
 import { getSimpleChild } from './getSimpleChild'
 import { getList } from './getList'
+import { getTable } from './getTable'
 
 const getNodeProps = (node: LexicalNonListElem) => ({
   content: node.children.map(getSimpleChild).join(''),
@@ -55,6 +48,8 @@ export const toHtml: ToHtml = (body, { chordsTonality = 0 } = {}) => {
           return getChords(elem, chordsTonality)
         case 'code':
           return getCode(elem)
+        case 'table':
+          return getTable(elem)
         default:
           return ''
       }

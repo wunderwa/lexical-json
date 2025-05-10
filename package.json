@@ -1,6 +1,6 @@
 {
   "name": "@wunderwa/lexical-json",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Facebook Lexical: JSON to html convertor, TypeScript library",
   "author": "Andrei Zagoruiko <adkrix@gmail.com> (https://zor.su)",
   "homepage": "https://github.com/wunderwa/lexical-json",
@@ -26,6 +26,7 @@
     "dist"
   ],
   "scripts": {
+    "man": "scripts/man",
     "dev": "vite --host --open",
     "watch": "tsc && vite build --watch",
     "build": "tsc && vite build",

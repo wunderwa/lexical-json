@@ -1,7 +1,7 @@
-import { Paragraph, FileChild } from 'docx'
+import { Paragraph, FileChild, Table, TableRow, TableCell, WidthType, ITableCellOptions } from 'docx'
 import '../../lib/defaultConfig'
 import { getChordsChild } from './utils/getChordsChild'
-import { formatToAlignment, getHeadingValue, getSimpleChild, getList, getCodeChild } from './utils'
+import { formatToAlignment, getHeadingValue, getSimpleChild, getList, getCodeChild, widthToPercent } from './utils'
 
 import {
   LexicalChords,
@@ -11,9 +11,10 @@ import {
   LexicalJson,
   LexicalParagraph,
   LexicalQuote,
+  LexicalTable,
+  LexicalTableCell,
+  LexicalTableRow,
 } from '../types'
-
-// TODO styles.direction = node.direction
 
 const theParagraph = (paragraph: LexicalParagraph): Paragraph => {
   return new Paragraph({
@@ -51,6 +52,33 @@ const theHeading = (heading: LexicalHeading) => {
   })
 }
 
+const theTable = (table: LexicalTable) => {
+  const { colWidths, children } = table
+  const percentWidths = widthToPercent(colWidths)
+  console.log(percentWidths)
+
+  return new Table({
+    rows: children.map((row: LexicalTableRow) => {
+      return new TableRow({
+        children: row.children.map((cell: LexicalTableCell, index: number) => {
+          const { rowSpan, colSpan: columnSpan } = cell
+          const cellParams: Partial<ITableCellOptions> = {
+            rowSpan,
+            columnSpan,
+            // textDirection: direction === 'rtl' ? TextDirection.LEFT_TO_RIGHT_TOP_TO_BOTTOM : ...
+          }
+          return new TableCell({
+            ...cellParams,
+            children: cell.children.map((p: LexicalParagraph) => theParagraph(p)),
+            width: { size: percentWidths[index] ?? 10, type: WidthType.PERCENTAGE },
+          })
+        }),
+      })
+    }),
+    width: { size: 100, type: WidthType.PERCENTAGE },
+  })
+}
+
 export const toDocxSection = (body: LexicalJson): FileChild[] => {
   return body.root.children.reduce((acc: FileChild[], elem: LexicalElem) => {
     switch (elem.type) {
@@ -66,6 +94,8 @@ export const toDocxSection = (body: LexicalJson): FileChild[] => {
         return [...acc, theChords(elem)]
       case 'code':
         return [...acc, theCode(elem)]
+      case 'table':
+        return [...acc, theTable(elem)]
     }
   }, [])
 }

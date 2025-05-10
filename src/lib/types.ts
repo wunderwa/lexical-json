@@ -15,6 +15,8 @@ export type LexicalTypes =
   | 'heading'
   | 'listitem'
   | 'list'
+  | 'table'
+  | 'tablecell'
 export type LexicalExtendTypes = 'code' | 'chords'
 
 export type LexicalChordsHighlightType = 'tone' | 'min' | 'attr' | 'error'
@@ -107,6 +109,7 @@ export type LexicalParagraph = LexicalBase & {
   children: LexicalSimpleChild[]
   type: 'paragraph'
   textFormat?: number
+  textStyle?: string
 }
 
 export type LexicalQuote = LexicalBase & {
@@ -152,6 +155,27 @@ export type LexicalCode = LexicalBase & {
   language?: string
 }
 
+// LexicalTable
+export type LexicalTableCell = LexicalBase & {
+  type: 'tablecell'
+  backgroundColor: string | null
+  colSpan: number
+  headerState: number
+  rowSpan: number
+  children: LexicalParagraph[]
+}
+
+export type LexicalTableRow = LexicalBase & {
+  type: 'tablerow'
+  children: LexicalTableCell[]
+}
+
+export type LexicalTable = LexicalBase & {
+  type: 'table'
+  colWidths: number[]
+  children: LexicalTableRow[]
+}
+
 //-- LexicalChords
 
 export type LexicalChordsHighlight = LexicalTextBase & {
@@ -169,7 +193,14 @@ export type LexicalChords = LexicalBase & {
 //--
 
 export type LexicalNonListElem = LexicalParagraph | LexicalHeading | LexicalQuote
-export type LexicalElem = LexicalParagraph | LexicalHeading | LexicalQuote | LexicalList | LexicalChords | LexicalCode
+export type LexicalElem =
+  | LexicalParagraph
+  | LexicalHeading
+  | LexicalQuote
+  | LexicalList
+  | LexicalChords
+  | LexicalCode
+  | LexicalTable
 
 export type LexicalJson = {
   root: {

@@ -1,6 +1,6 @@
 import { downloadFile } from './downloadFile'
 import Parser from 'html-react-parser'
-import { numbering, toDocx, toDocxSection } from '../lib/toDocx'
+import { numbering, setConfig, toDocx, toDocxSection } from '../lib'
 import { useCallback, useMemo, useState } from 'react'
 import { testData } from '../data/test'
 import { toHtml, setConfigItem, toView, clearBlocks } from '../lib'
@@ -8,6 +8,21 @@ import { toHtml, setConfigItem, toView, clearBlocks } from '../lib'
 setConfigItem(
   {
     style: { borderLeft: '5px solid black', padding: '8px' },
+  },
+  'quote',
+)
+
+setConfig({
+  table: {
+    style: { border: '1px solid red', borderCollapse: 'collapse' },
+  },
+  tablecell: {
+    style: { border: '1px solid red' },
+  },
+})
+setConfigItem(
+  {
+    style: { border: '1px dashed red' },
   },
   'quote',
 )
@@ -38,6 +53,7 @@ export const App = () => {
 
   const Download = useCallback(() => {
     const children = toDocxSection(testData)
+    console.log(children)
     toDocx([{ children }], numbering).then(blob => {
       downloadFile(blob, `lexical-${Math.ceil(Date.now() / 100).toString(36)}.docx`, '')
     })

@@ -4,6 +4,9 @@ import react from '@vitejs/plugin-react'
 import { defineConfig, UserConfig } from 'vite'
 
 export default defineConfig({
+  server: {
+    port: 4006,
+  },
   base: './',
   plugins: [dts({ rollupTypes: true }), react()],
   build: {
