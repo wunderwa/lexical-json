@@ -64,7 +64,10 @@ const htmlStrShifted = toHtml(json, { chordsTonality: -6 }) // for chords plugin
 saveAs(data, 'file.docx') // save as docx file
 
 const text = toView(json)
-const textShifted = toView(json, { chordsTonality: -6 }) // for chords plugin
+const textShifted = toView(json, { 
+  chordsTonality: -6, // for chords plugin
+  textOnly: true      // for clean text
+}) 
 ```
 
 ```ts

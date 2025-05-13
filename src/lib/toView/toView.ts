@@ -64,8 +64,15 @@ const getCodeChild = (simpleChild: LexicalCodeChild) => {
   }
 }
 
-const getList = (list: LexicalList, pad = ''): string => {
+type GetList = {
+  pad?: string
+  textOnly?: boolean
+}
+const getList = (list: LexicalList, { pad = '', textOnly = false }: GetList = {}): string => {
   const getPrefix = (index: number, check: boolean) => {
+    if (textOnly) {
+      return ''
+    }
     switch (list.listType) {
       case 'number':
         return `${index + 1}. `
@@ -73,7 +80,7 @@ const getList = (list: LexicalList, pad = ''): string => {
       // ☑ - (U+2611)
       // ☒ - (U+2612)
       case 'check':
-        return check ? '☒ ' : '☐'
+        return check ? '☒ ' : '☐ '
       default:
         return '• '
     }
@@ -87,7 +94,7 @@ const getList = (list: LexicalList, pad = ''): string => {
         prefix +
         listItem.children.map((itemChild: LexicalListItemChild) => {
           if (itemChild.type == 'list') {
-            return getList(itemChild, '  ')
+            return getList(itemChild, { pad: '  ', textOnly })
           } else {
             return getSimpleChild(itemChild)
           }
@@ -123,12 +130,12 @@ export const getTable = (table: LexicalTable): string => {
     .join('\n')
 }
 
-export const toView: ToView = (body, { chordsTonality = 0 } = {}) => {
+export const toView: ToView = (body, { chordsTonality = 0, textOnly = false } = {}) => {
   return body.root.children
     .map((elem: LexicalElem) => {
       switch (elem.type) {
         case 'list':
-          return getList(elem)
+          return getList(elem, { textOnly })
         case 'heading':
           return getHeading(elem)
         case 'quote':

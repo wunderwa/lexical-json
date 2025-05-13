@@ -35,13 +35,14 @@ const jsonConv = {
 }
 const htmlConvStr = toHtml(jsonConv)
 
-type AppSection = 'html' | 'text' | 'conv'
+type AppSection = 'html' | 'view' | 'conv' | 'text'
 
 export const App = () => {
   const [section, setSection] = useState<AppSection>('html')
   const [shift, setShift] = useState<number>(0)
 
   const textStr = useMemo(() => toView(testData, { chordsTonality: shift }), [shift])
+  const textOnlyStr = useMemo(() => toView(testData, { chordsTonality: shift, textOnly: true }), [shift])
   const htmlStr = useMemo(() => toHtml(testData, { chordsTonality: shift }), [shift])
 
   const theSection = useCallback(
@@ -61,10 +62,16 @@ export const App = () => {
   return (
     <div>
       <button
+        disabled={section === 'view'}
+        onClick={() => theSection('view')}
+      >
+        {'Show text (view)'}
+      </button>
+      <button
         disabled={section === 'text'}
         onClick={() => theSection('text')}
       >
-        {'Show text'}
+        {'Show text (only)'}
       </button>
 
       <button
@@ -83,7 +90,7 @@ export const App = () => {
       </button>
       {' - '}
       <button onClick={Download}>Download DOCX</button>
-      {(section == 'html' || section == 'text') && (
+      {(section == 'html' || section == 'view') && (
         <div>
           <button onClick={() => setShift(shift - 1)}> {'Prev tone'} </button>
           {shift}
@@ -94,8 +101,11 @@ export const App = () => {
       {section == 'html' && (
         <div style={{ maxWidth: 800, outline: '1px solid red', margin: '10px auto' }}>{Parser(htmlStr)}</div>
       )}
-      {section == 'text' && (
+      {section == 'view' && (
         <pre style={{ maxWidth: 800, outline: '1px solid red', margin: '10px auto' }}>{textStr}</pre>
+      )}
+      {section == 'text' && (
+        <pre style={{ maxWidth: 800, outline: '1px solid red', margin: '10px auto' }}>{textOnlyStr}</pre>
       )}
       {section == 'conv' && (
         <div style={{ maxWidth: 800, outline: '1px solid red', margin: '10px auto' }}>{Parser(htmlConvStr)}</div>

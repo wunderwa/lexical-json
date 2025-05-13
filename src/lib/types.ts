@@ -220,6 +220,7 @@ export type ToView = (
   body: LexicalJson,
   params?: {
     chordsTonality?: ChordToneShift
+    textOnly?: boolean
   },
 ) => string
 
