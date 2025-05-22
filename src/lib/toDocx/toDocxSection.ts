@@ -55,7 +55,6 @@ const theHeading = (heading: LexicalHeading) => {
 const theTable = (table: LexicalTable) => {
   const { colWidths, children } = table
   const percentWidths = widthToPercent(colWidths)
-  console.log(percentWidths)
 
   return new Table({
     rows: children.map((row: LexicalTableRow) => {

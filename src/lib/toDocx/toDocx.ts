@@ -1,9 +1,10 @@
 import { Document, Packer, File, ISectionOptions, INumberingOptions } from 'docx'
 
 type DocxOpts = {
-  creator?: string
   title?: string
   description?: string
+  creator?: string
+  keywords?: string
 }
 
 export const toDocx = (sections: ISectionOptions[], numbering: INumberingOptions, options?: DocxOpts) => {
