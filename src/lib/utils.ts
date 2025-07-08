@@ -11,3 +11,15 @@ export const getShiftedTone = (tone: ChordsTone, shift: ChordToneShift): ChordsT
   }
   return [...tones, ...tones][i + _shift]
 }
+
+export const escapeXml = (unsafe: string) =>
+  unsafe.replace(/[<>&"']/g, s => {
+    const replacement: { [key: string]: string } = {
+      '<': '&lt;',
+      '>': '&gt;',
+      '&': '&amp;',
+      '"': '&quot;',
+      "'": '&apos;',
+    }
+    return replacement[s] ?? ''
+  })
