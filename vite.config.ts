@@ -5,7 +5,7 @@ import { defineConfig, UserConfig } from 'vite'
 
 export default defineConfig({
   server: {
-    port: 4006,
+    port: 4001,
   },
   base: './',
   plugins: [dts({ rollupTypes: true }), react()],
