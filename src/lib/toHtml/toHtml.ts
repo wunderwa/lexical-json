@@ -10,7 +10,8 @@ import { getList } from './getList'
 import { getTable } from './getTable'
 
 const getNodeProps = (node: LexicalNonListElem) => ({
-  content: node.children.map(getSimpleChild).join(''),
+  //content: node.children.map(getSimpleChild).join(''),
+  content: node.children.length ? node.children.map(getSimpleChild).join('') : '<br>',
   styles: getBaseStyle(node),
 })
 
