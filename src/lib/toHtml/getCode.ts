@@ -1,8 +1,8 @@
 import { getAttr } from '../config'
 import { getBaseStyle } from './getBaseStyle'
-import { LexicalCode, LexicalCodeChild, LexicalCodeHighlight, LexicalTab } from '../types'
-
-const getTab = (tab: LexicalTab) => `<span>${tab.text}&nbsp;&nbsp;</span>`
+import { getTab } from './getTab'
+import { LexicalCode, LexicalCodeChild, LexicalCodeHighlight } from '../types'
+import { tag } from '../utils'
 
 const getHighlight = (item: LexicalCodeHighlight) => {
   switch (item.highlightType) {
@@ -11,9 +11,15 @@ const getHighlight = (item: LexicalCodeHighlight) => {
     case 'constant':
     case 'variable':
     case 'function':
-      return `<span style="font-weight: bold">${item.text}</span>`
+      //return `<span style="font-weight: bold">${item.text}</span>`
+      return tag('span', item.text, {
+        escape: true,
+        attrs: {
+          style: 'font-weight: bold',
+        },
+      })
     default:
-      return `<span>${item.text}</span>`
+      return tag('span', item.text, { escape: true })
   }
 }
 
@@ -25,7 +31,7 @@ const getCodeHighlightChild = (simpleChild: LexicalCodeChild) => {
       return getTab(simpleChild)
     case 'linebreak':
     default:
-      return '<br>'
+      return '<br/>'
   }
 }
 

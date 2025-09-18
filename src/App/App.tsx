@@ -4,6 +4,8 @@ import { numbering, setConfig, toDocx, toDocxSection } from '../lib'
 import { useCallback, useMemo, useState } from 'react'
 import { testData } from '../data/test'
 import { toHtml, setConfigItem, toView, clearBlocks } from '../lib'
+import { toFb2, toFb2Section } from '../lib/toFb2'
+import { descriptionMax, descriptionMin } from '../data/testDescription'
 
 setConfigItem(
   {
@@ -52,13 +54,29 @@ export const App = () => {
     [setSection],
   )
 
-  const Download = useCallback(() => {
+  const DownloadDocx = useCallback(() => {
     const children = toDocxSection(testData)
     console.log(children)
     toDocx([{ children }], numbering).then(blob => {
       downloadFile(blob, `lexical-${Math.ceil(Date.now() / 100).toString(36)}.docx`, '')
     })
   }, [])
+
+  const DownloadFb2 = useCallback(() => {
+    const sections = [toFb2Section(testData)]
+    const fb2 = toFb2({ sections, description: descriptionMax })
+
+    downloadFile(fb2, `lexical-max-${Math.ceil(Date.now() / 100).toString(36)}.fb2`, '')
+  }, [])
+
+  const DownloadFb2Min = useCallback(() => {
+    const sections = [toFb2Section(testData)]
+    console.log(sections)
+    const fb2 = toFb2({ sections, description: descriptionMin })
+
+    downloadFile(fb2, `lexical-min-${Math.ceil(Date.now() / 100).toString(36)}.fb2`, '')
+  }, [])
+
   return (
     <div>
       <button
@@ -89,7 +107,11 @@ export const App = () => {
         {'Show convert all in paragraphs'}
       </button>
       {' - '}
-      <button onClick={Download}>Download DOCX</button>
+      <button onClick={DownloadDocx}>Download DOCX</button>
+      {' - '}
+      <button onClick={DownloadFb2}>Download FB2</button>
+      {' - '}
+      <button onClick={DownloadFb2Min}>Download FB2 min</button>
       {(section == 'html' || section == 'view') && (
         <div>
           <button onClick={() => setShift(shift - 1)}> {'Prev tone'} </button>

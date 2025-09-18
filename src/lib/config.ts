@@ -1,6 +1,14 @@
 import { toCssString } from './styleConvert'
 import { LexicalConfigKey, LexicalConfigItem, LexicalConfig, LexicalStyle } from './types'
 
+export let newLine = true
+
+export const setNewLine = (has: boolean): void => {
+  newLine = has
+}
+
+export const getNewLine = (): string => (newLine ? '\n' : '')
+
 const configTypes: LexicalConfigKey[] = [
   'text',
   'linebreak',

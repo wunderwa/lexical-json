@@ -14,6 +14,6 @@ export const getSimpleChild = (simpleChild: LexicalSimpleChild) => {
       return getTab(simpleChild)
     case 'linebreak':
     default:
-      return '<br>'
+      return ' <br/>'
   }
 }

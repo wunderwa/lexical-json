@@ -230,3 +230,14 @@ export type ToHtml = (
     chordsTonality?: ChordToneShift
   },
 ) => string
+
+export type ToFb2Section = (
+  body: LexicalJson,
+  params?: {
+    chordsTonality?: ChordToneShift
+  },
+) => string
+
+// ---
+
+export * from './typesFb2'
