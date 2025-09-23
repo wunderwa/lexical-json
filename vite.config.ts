@@ -10,11 +10,12 @@ export default defineConfig({
   base: './',
   plugins: [dts({ rollupTypes: true }), react()],
   build: {
-    sourcemap: true,
+    sourcemap: false,
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
       name: 'mllib',
-      formats: ['es', 'cjs', 'umd', 'iife'],
+      formats: ['es', 'cjs'],
+      // formats: ['es', 'cjs', 'umd', 'iife'],
       fileName: format => `index.${format}.js`,
     },
     rollupOptions: {

@@ -1,5 +1,5 @@
 import { Fb2Creator, Fb2Creators, Fb2TitleInfo } from '../typesFb2'
-import { filterNotEmpty, tag, tagP } from '../utils'
+import { filterNotEmpty, $, $p } from '../utils'
 import { getNewLine } from '../config'
 
 const getAuthors = (author: Fb2Creators): string[] => {
@@ -21,10 +21,10 @@ export const toFb2Body = ({ sections, titleInfo }: toFb2BodyParams): string => {
   const { author, bookTitle } = titleInfo
   const titleContent = [...getAuthors(author), bookTitle]
     .filter(filterNotEmpty)
-    .map((s: string) => tagP(s))
+    .map((s: string) => $p(s))
     .join(getNewLine())
 
-  const fbTitle = tag('title', titleContent)
+  const fbTitle = $('title', titleContent)
 
-  return tag('body', [fbTitle, ...sections].join(getNewLine()))
+  return $('body', [fbTitle, ...sections].join(getNewLine()))
 }

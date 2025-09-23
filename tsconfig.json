@@ -14,7 +14,7 @@
     "useDefineForClassFields": true,
     "strict": true,
     "skipLibCheck": false,
-    "sourceMap": true,
+    "sourceMap": false,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
@@ -24,7 +24,7 @@
     "noImplicitReturns": false,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src"],
+  "include": ["src/lib"],
   "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

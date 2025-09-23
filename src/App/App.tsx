@@ -2,10 +2,11 @@ import { downloadFile } from './downloadFile'
 import Parser from 'html-react-parser'
 import { numbering, setConfig, toDocx, toDocxSection } from '../lib'
 import { useCallback, useMemo, useState } from 'react'
-import { testData } from '../data/test'
+import { testData } from '../data/testData'
 import { toHtml, setConfigItem, toView, clearBlocks } from '../lib'
 import { toFb2, toFb2Section } from '../lib/toFb2'
 import { descriptionMax, descriptionMin } from '../data/testDescription'
+import '../lib/toFb2/genres'
 
 setConfigItem(
   {

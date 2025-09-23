@@ -1,7 +1,7 @@
-import { getAttr, getConfig } from '../config'
+import { getAttrs, getConfig } from '../config'
 import { IS_BOLD, IS_CODE, IS_ITALIC, IS_STRIKETHROUGH, IS_UNDERLINE } from '../constants'
 import { LexicalStyle, LexicalText } from '../types'
-import { escapeXml } from '../utils'
+import { $ } from '../utils'
 
 export const getText = (text: LexicalText) => {
   let styles: LexicalStyle = {}
@@ -26,6 +26,5 @@ export const getText = (text: LexicalText) => {
     styles.fontFamily = 'monospace'
     styles = { ...styles, ...(getConfig('code')?.style ?? {}) }
   }
-  const configAttr = getAttr('text', styles)
-  return `<span ${configAttr}>${escapeXml(text.text)}</span>`
+  return $('span', text.text, { escape: true, attrs: getAttrs('text', styles) })
 }

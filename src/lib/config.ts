@@ -61,7 +61,7 @@ export const setConfig = (config: LexicalConfig): void => {
 
 export const getConfig = (key: LexicalConfigKey): LexicalConfigItem | null => Config[key] ?? null
 
-export const getAttr = (key: LexicalConfigKey, injectStyle: LexicalStyle = null): string => {
+export const getAttrs = (key: LexicalConfigKey, injectStyle: LexicalStyle = null): { [key: string]: string } => {
   const conf = getConfig(key)
   let _style = injectStyle ?? {}
   const _class = []
@@ -71,7 +71,8 @@ export const getAttr = (key: LexicalConfigKey, injectStyle: LexicalStyle = null)
   if (conf?.class) {
     _class.push(conf.class)
   }
-
-  const res = [_class.length ? `class="${_class.join(' ')}"` : '', `style="${toCssString(_style)}"`]
-  return res.join(' ')
+  return {
+    class: _class.join(' '),
+    style: toCssString(_style),
+  }
 }

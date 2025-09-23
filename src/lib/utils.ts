@@ -1,5 +1,6 @@
-import { ChordToneShift, ChordsTone } from './types'
+import { ChordToneShift, ChordsTone, LexicalTab } from './types'
 import { getNewLine } from './config'
+import { nbsp } from './constants'
 
 export const tones: ChordsTone[] = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
 
@@ -42,18 +43,20 @@ const objectToHtmlAttributesString = (obj: Opts['attrs']) => {
   return attributes.join(' ')
 }
 
-export type Tags = (tag: string, contents?: string | null, opts?: Opts) => string
-
-export const tag: Tags = (tag, contents = null, opts = {}) => {
+export const $ = (tag: string, contents: string | null = null, opts: Opts = {}): string => {
   const _content = opts?.escape && contents ? escapeXml(contents) : contents
 
   const attrs = opts.attrs ? ` ${objectToHtmlAttributesString(opts.attrs)} ` : ''
   return contents ? `<${tag}${attrs}>${_content}</${tag}>` : `<${tag}${attrs}/>`
 }
 
-export const tagP = (content: string, escape = false): string => tag('p', escape ? escapeXml(content) : content)
+export const $p = (content: string, escape = false): string => $('p', escape ? escapeXml(content) : content)
 
 export const filterString = (s: string | null) => typeof s === 'string'
 export const filterNotEmpty = (s: unknown) => Boolean(s)
 
 export const compactXml = (data: (string | null)[]): string => data.filter(filterString).join(getNewLine())
+
+export const $br = () => $('br')
+
+export const $tab = (tab: LexicalTab | null = null) => `${nbsp}${nbsp}`.repeat(Math.max(tab?.text.length ?? 0, 1))

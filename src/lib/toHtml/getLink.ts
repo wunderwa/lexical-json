@@ -1,20 +1,31 @@
-import { getAttr } from '../config'
+import { getAttrs } from '../config'
 import { LexicalLink } from '../types'
 import { getText } from './getText'
+import { $ } from '../utils'
+
+type Attr = Record<string, string>
+type AttrName = keyof LexicalLink
+const availableKeys: AttrName[] = ['url', 'rel', 'target', 'title']
 
 export const getLink = (link: LexicalLink) => {
   const content = link.children.map(getText).join('')
-  const keys: (keyof LexicalLink)[] = Object.keys(link) as (keyof LexicalLink)[]
-  const attr = keys
-    .map(key => {
-      if (['children', 'version'].includes(key)) return ''
-      if (key == 'url') {
-        return link[key] ? `href="${link[key]}"` : ''
-      } else {
-        return link[key] ? `${key}="${link[key]}"` : ''
+  const keys: AttrName[] = Object.keys(link) as AttrName[]
+
+  const attr: Attr = keys.reduce((acc: Attr, key: AttrName) => {
+    if (!availableKeys.includes(key)) return acc
+    if (link[key]) {
+      const _key: string = key === 'url' ? 'href' : key
+      return {
+        ...acc,
+        [_key]: (link[key] ?? '') as string,
       }
-    })
-    .join(' ')
-  const configAttr = getAttr('link')
-  return `<a ${attr} ${configAttr}>${content}</a>`
+    }
+    return acc
+  }, {})
+  return $('a', content, {
+    attrs: {
+      ...getAttrs('link'),
+      ...attr,
+    },
+  })
 }

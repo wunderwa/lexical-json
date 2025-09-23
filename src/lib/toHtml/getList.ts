@@ -1,35 +1,40 @@
 import { getBaseStyle } from './getBaseStyle'
 import { getSimpleChild } from './getSimpleChild'
 import { LexicalList, LexicalListItem, LexicalListItemChild } from '../types'
-import { getAttr } from '../config'
+import { getAttrs } from '../config'
+import { $ } from '../utils'
 
 export const getList = (list: LexicalList): string => {
   const items = list.children
     .map((listItem: LexicalListItem) => {
-      const listItemChildren = listItem.children.map((itemChild: LexicalListItemChild) => {
-        if (itemChild.type == 'list') {
-          return getList(itemChild)
-        } else {
-          return getSimpleChild(itemChild)
-        }
-      })
+      const listItemChildren = listItem.children
+        .map((itemChild: LexicalListItemChild) => {
+          if (itemChild.type == 'list') {
+            return getList(itemChild)
+          } else {
+            return getSimpleChild(itemChild)
+          }
+        })
+        .join('')
       let bullet = ''
       const styles = getBaseStyle(listItem) ?? {}
       if (list.listType === 'check') {
-        bullet = `<span> ${listItem.checked ? '🗹' : '🗆'} </span>`
+        bullet = $('span', ` ${listItem.checked ? '🗹' : '🗆'} `)
         if (listItem.checked) {
           styles.textDecoration = 'line-through'
         }
       }
-      const configAttr = getAttr('listitem', styles)
-
-      return `<li ${configAttr}>${bullet}${listItemChildren}</li>`
+      return $('li', `${bullet}${listItemChildren}`, {
+        attrs: getAttrs('listitem', styles),
+      })
     })
     .join('\n')
   const listStyle = getBaseStyle(list) ?? {}
   if (list.listType === 'check') {
     listStyle.listStyle = 'none'
   }
-  const configAttr = getAttr('list', listStyle)
-  return `<${list.tag} ${configAttr}>${items}</${list.tag}>`
+
+  return $(list.tag, items, {
+    attrs: getAttrs('list', listStyle),
+  })
 }

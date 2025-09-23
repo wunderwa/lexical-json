@@ -1,8 +1,9 @@
 import { getBaseStyle } from './getBaseStyle'
 import { getSimpleChild } from './getSimpleChild'
 import { LexicalTable, LexicalTableCell, LexicalTableRow } from '../types'
-import { getAttr } from '../config'
+import { getAttrs, getNewLine } from '../config'
 import { widthToPercent } from '../toDocx/utils'
+import { $, $p } from '../utils'
 
 export const getTable = (table: LexicalTable): string => {
   const percentWidths = widthToPercent(table.colWidths)
@@ -12,19 +13,21 @@ export const getTable = (table: LexicalTable): string => {
         const tdStyle = {
           width: `${percentWidths[i]}%`,
         }
-        const tableCellAttr = getAttr('tablecell', tdStyle)
-
-        return `<td ${tableCellAttr}>${cell.children
+        const tableCellContent = cell.children
           .map(p => {
-            return `<p>${p.children.map(getSimpleChild)}</p>`
+            return $p(p.children.map(getSimpleChild).join(''))
           })
-          .join('')}</td>`
+          .join('')
+
+        return $('td', tableCellContent, { attrs: getAttrs('tablecell', tdStyle) })
       })
-      .join('\n')
-    return `<tr>${rowChildren}</tr>`
+      .join(getNewLine())
+    return $('tr', rowChildren)
   })
 
   const tableStyle = getBaseStyle(table)
-  const tableAttr = getAttr('table', { width: '100%', ...tableStyle })
-  return `<table ${tableAttr}><tbody>${rows}</tbody></table>`
+  const tbody = $('tbody', rows.join(getNewLine()))
+  return $('table', tbody, {
+    attrs: getAttrs('table', { width: '100%', ...tableStyle }),
+  })
 }

@@ -1,31 +1,34 @@
-import { escapeXml, getShiftedTone, tag, tagP } from '../utils'
+import { escapeXml, $br, $tab, getShiftedTone, $, $p } from '../utils'
 import { ChordsTone, ChordToneShift, LexicalChords, LexicalChordsChild, LexicalChordsHighlight } from '../types'
-import { getTab } from './getText'
+import { nbsp } from '../constants'
 
 const getHighlight = (item: LexicalChordsHighlight, tonality: ChordToneShift = 0) => {
   switch (item.highlightType) {
     case 'tone': {
       const tone = getShiftedTone(item.text as ChordsTone, tonality) ?? item.text
-      return tag('emphasis', tone, { escape: true })
+      return $('emphasis', tone, { escape: true })
     }
     case 'min':
-      return tag('sub', item.text, { escape: true })
+      return $('sub', item.text, { escape: true })
     case 'attr':
-      return tag('sup', item.text, { escape: true })
+      return $('sup', item.text, { escape: true })
     case 'error':
-      return tag('strikethrough', item.text, { escape: true })
-    default:
-      return escapeXml(item.text)
+      return $('strikethrough', item.text, { escape: true })
+    default: {
+      return item.text.match(/^b+$/) ? nbsp : escapeXml(item.text).replace(/\n/g, $br())
+    }
   }
 }
 
 const getChordsHighlightChild = (simpleChild: LexicalChordsChild, tonality: ChordToneShift = 0) => {
+  console.log(simpleChild)
   switch (simpleChild.type) {
     case 'chords-highlight':
       return getHighlight(simpleChild, tonality)
     case 'tab':
-      return getTab(simpleChild)
+      return $tab(simpleChild)
     case 'linebreak':
+      return $br()
     default:
       return ' '
   }
@@ -33,5 +36,5 @@ const getChordsHighlightChild = (simpleChild: LexicalChordsChild, tonality: Chor
 
 export const getChords = (chords: LexicalChords, tonality: ChordToneShift) => {
   const content = chords.children.map(ch => getChordsHighlightChild(ch, tonality)).join('')
-  return tagP(tag('code', content))
+  return $p($('code', content))
 }

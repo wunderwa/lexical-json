@@ -1,6 +1,6 @@
 import { LexicalLink } from '../types'
 import { getText } from './getText'
-import { tag } from '../utils'
+import { $ } from '../utils'
 
 const attrs = {
   'xmlns:fb': 'https://www.gribuser.ru/xml/fictionbook/2.0',
@@ -11,10 +11,10 @@ const attrs = {
 export const getLink = (link: LexicalLink) => {
   const content = link.children.map(getText).join('')
 
-  return tag('a', content, {
+  return $('a', content, {
     attrs: {
       ...attrs,
-      href: link.url ?? '',
+      'l:href': link.url ?? '',
     },
   })
 }

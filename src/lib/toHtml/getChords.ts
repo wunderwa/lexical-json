@@ -1,32 +1,43 @@
-import { getAttr } from '../config'
-import { getShiftedTone } from '../utils'
+import { getAttrs } from '../config'
+import { $br, getShiftedTone, $tab, $ } from '../utils'
 import { getBaseStyle } from './getBaseStyle'
-import {
-  ChordsTone,
-  ChordToneShift,
-  LexicalChords,
-  LexicalChordsChild,
-  LexicalChordsHighlight,
-  LexicalTab,
-} from '../types'
-
-const getTab = (tab: LexicalTab) => `<span>${tab.text}</span>`
+import { ChordsTone, ChordToneShift, LexicalChords, LexicalChordsChild, LexicalChordsHighlight } from '../types'
 
 const getHighlight = (item: LexicalChordsHighlight, tonality: ChordToneShift = 0) => {
   switch (item.highlightType) {
     // TODO NEED STYLES!!!!
-    case 'tone':
+    case 'tone': {
       const tone = getShiftedTone(item.text as ChordsTone, tonality) ?? item.text
-
-      return `<span style="font-weight: bold">${tone}</span>`
+      return $('span', tone, {
+        escape: true,
+        attrs: {
+          style: 'font-weight: bold',
+        },
+      })
+    }
     case 'min':
-      return `<span style="font-size: 90%">${item.text}</span>`
+      return $('span', item.text, {
+        escape: true,
+        attrs: {
+          style: 'font-size: 90%',
+        },
+      })
     case 'attr':
-      return `<span style="font-size: 80%;vertical-align: super">${item.text}</span>`
+      return $('span', item.text, {
+        escape: true,
+        attrs: {
+          style: 'font-size: 80%;vertical-align: super',
+        },
+      })
     case 'error':
-      return `<span style="text-decoration: line-through;color: red">${item.text}</span>`
+      return $('span', item.text, {
+        escape: true,
+        attrs: {
+          style: 'text-decoration: line-through;color: red',
+        },
+      })
     default:
-      return `<span>${item.text}</span>`
+      return $('span', item.text, { escape: true })
   }
 }
 
@@ -35,10 +46,11 @@ const getChordsHighlightChild = (simpleChild: LexicalChordsChild, tonality: Chor
     case 'chords-highlight':
       return getHighlight(simpleChild, tonality)
     case 'tab':
-      return getTab(simpleChild)
+      return $tab(simpleChild)
     case 'linebreak':
+      return $br()
     default:
-      return '<br>'
+      return $tab()
   }
 }
 
@@ -46,6 +58,7 @@ export const getChords = (chords: LexicalChords, tonality: ChordToneShift) => {
   const content = chords.children.map(ch => getChordsHighlightChild(ch, tonality)).join('')
   const styles = getBaseStyle(chords) ?? {}
   styles.fontFamily = 'monospace'
-  const configAttr = getAttr('chords', styles)
-  return `<code ${configAttr}>${content}</code>`
+  return $('code', content, {
+    attrs: getAttrs('chords', { ...styles, display: 'block' }),
+  })
 }

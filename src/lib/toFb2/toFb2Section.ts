@@ -6,7 +6,7 @@ import { getChords } from './getChords'
 import { getSimpleChild } from './getSimpleChild'
 import { getList } from './getList'
 import { getTable } from './getTable'
-import { tag, tagP } from '../utils'
+import { $, $p } from '../utils'
 
 const getNodeProps = (node: LexicalNonListElem) => ({
   content: node.children.map(getSimpleChild).join(''),
@@ -14,17 +14,17 @@ const getNodeProps = (node: LexicalNonListElem) => ({
 
 const getParagraph = (paragraph: LexicalParagraph) => {
   const { content } = getNodeProps(paragraph)
-  return tagP(content)
+  return $p(content)
 }
 
 const getQuote = (quote: LexicalQuote) => {
   const { content } = getNodeProps(quote)
-  return tag('annotation', tagP(content))
+  return $('annotation', $p(content))
 }
 
 const getHeading = (heading: LexicalHeading) => {
   const { content } = getNodeProps(heading)
-  return tag('title', tagP(content))
+  return $('title', $p(content))
 }
 
 export const toFb2Section: ToFb2Section = (body, { chordsTonality = 0 } = {}) => {
@@ -51,5 +51,5 @@ export const toFb2Section: ToFb2Section = (body, { chordsTonality = 0 } = {}) =>
     })
     .join(`\n`)
 
-  return tag('section', `\n${children}\n`)
+  return $('section', `\n${children}\n`)
 }

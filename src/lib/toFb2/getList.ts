@@ -1,19 +1,20 @@
 import { getSimpleChild } from './getSimpleChild'
 import { LexicalList, LexicalListItem, LexicalListItemChild } from '../types'
-import { tagP } from '../utils'
-
-const nbsp = ' '
+import { $p } from '../utils'
+import { nbsp } from '../constants'
 
 export const getList = (list: LexicalList, level = 0): string => {
   const items = list.children
     .map((listItem: LexicalListItem) => {
-      const listItemChildren = listItem.children.map((itemChild: LexicalListItemChild) => {
-        if (itemChild.type == 'list') {
-          return getList(itemChild, level + 1)
-        } else {
-          return getSimpleChild(itemChild)
-        }
-      })
+      const listItemChildren = listItem.children
+        .map((itemChild: LexicalListItemChild) => {
+          if (itemChild.type == 'list') {
+            return getList(itemChild, level + 1)
+          } else {
+            return getSimpleChild(itemChild)
+          }
+        })
+        .join('')
 
       let bullet = ''
 
@@ -25,7 +26,7 @@ export const getList = (list: LexicalList, level = 0): string => {
         bullet = `${listItem.value}. `
       }
 
-      return tagP(`${nbsp.repeat(level)}${bullet}${nbsp}${listItemChildren}`)
+      return $p(`${nbsp.repeat(level)}${bullet}${nbsp}${listItemChildren}`)
     })
     .join('\n')
 

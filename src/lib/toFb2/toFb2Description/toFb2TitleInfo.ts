@@ -1,6 +1,6 @@
 import { getNewLine } from '../../config'
 import { Fb2TitleInfo } from '../../typesFb2'
-import { filterString, tag } from '../../utils'
+import { filterString, $ } from '../../utils'
 import { tagAnnotation, tagOfData, tagSequence } from '../utils'
 import { toFb2CreatorOf } from './toFb2Creator'
 
@@ -21,5 +21,5 @@ export const toFb2TitleInfo = (data: Fb2TitleInfo): string => {
     .filter(filterString)
     .join(getNewLine())
 
-  return tag('title-info', content)
+  return $('title-info', content)
 }

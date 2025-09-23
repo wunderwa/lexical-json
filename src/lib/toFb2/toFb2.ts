@@ -1,4 +1,4 @@
-import { tag } from '../utils'
+import { $ } from '../utils'
 import { fbTagAttrs, xmlHead } from './constants'
 import { getNewLine } from '../config'
 import { Fb2Description } from '../typesFb2'
@@ -22,5 +22,5 @@ export const toFb2 = ({ sections, description }: ToFb2Params): string => {
     // titleInfo.coverpage = 'binary data:image/jpeg;base64,...'
   ]
 
-  return `${xmlHead}\n${tag('FictionBook', fbList.join(getNewLine()), opts)}`
+  return `${xmlHead}\n${$('FictionBook', fbList.join(getNewLine()), opts)}`
 }

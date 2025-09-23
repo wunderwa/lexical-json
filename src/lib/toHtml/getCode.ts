@@ -1,8 +1,7 @@
-import { getAttr } from '../config'
+import { getAttrs } from '../config'
 import { getBaseStyle } from './getBaseStyle'
-import { getTab } from './getTab'
 import { LexicalCode, LexicalCodeChild, LexicalCodeHighlight } from '../types'
-import { tag } from '../utils'
+import { $, $tab, $br } from '../utils'
 
 const getHighlight = (item: LexicalCodeHighlight) => {
   switch (item.highlightType) {
@@ -11,15 +10,14 @@ const getHighlight = (item: LexicalCodeHighlight) => {
     case 'constant':
     case 'variable':
     case 'function':
-      //return `<span style="font-weight: bold">${item.text}</span>`
-      return tag('span', item.text, {
+      return $('span', item.text, {
         escape: true,
         attrs: {
           style: 'font-weight: bold',
         },
       })
     default:
-      return tag('span', item.text, { escape: true })
+      return $('span', item.text, { escape: true })
   }
 }
 
@@ -28,10 +26,10 @@ const getCodeHighlightChild = (simpleChild: LexicalCodeChild) => {
     case 'code-highlight':
       return getHighlight(simpleChild)
     case 'tab':
-      return getTab(simpleChild)
+      return $tab(simpleChild)
     case 'linebreak':
     default:
-      return '<br/>'
+      return $br()
   }
 }
 
@@ -39,6 +37,5 @@ export const getCode = (code: LexicalCode) => {
   const content = code.children.map(getCodeHighlightChild).join('')
   const styles = getBaseStyle(code) ?? {}
   styles.fontFamily = 'monospace'
-  const configAttr = getAttr('code', styles)
-  return `<code ${configAttr}>${content}</code>`
+  return $('code', content, { attrs: getAttrs('code', styles) })
 }

@@ -1,6 +1,6 @@
 import { Fb2Creator, Fb2Creators } from '../../types'
 import { getNewLine } from '../../config'
-import { filterString, tag } from '../../utils'
+import { filterString, $ } from '../../utils'
 import { tagOfData } from '../utils'
 
 type TagName = 'author' | 'translator' | 'publisher'
@@ -14,7 +14,7 @@ export const toFb2Creator = (tagName: TagName, data: Fb2Creator): string => {
     tagOfData('email', data.email),
     tagOfData('id', data.id),
   ].filter(filterString)
-  return tag(tagName, content.join(getNewLine()))
+  return $(tagName, content.join(getNewLine()))
 }
 
 export const toFb2CreatorOf = (tagName: TagName, data?: Fb2Creators): string | null => {
