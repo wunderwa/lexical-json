@@ -21,7 +21,6 @@ const getHighlight = (item: LexicalChordsHighlight, tonality: ChordToneShift = 0
 }
 
 const getChordsHighlightChild = (simpleChild: LexicalChordsChild, tonality: ChordToneShift = 0) => {
-  console.log(simpleChild)
   switch (simpleChild.type) {
     case 'chords-highlight':
       return getHighlight(simpleChild, tonality)

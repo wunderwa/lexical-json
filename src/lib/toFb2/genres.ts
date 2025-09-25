@@ -667,5 +667,3 @@ export const getGenres = (withGroup = false): Genre[] =>
     ],
     [],
   )
-
-console.log(getGenres(true))
